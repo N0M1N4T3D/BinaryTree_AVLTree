@@ -32,7 +32,7 @@ void insert_to_tree(pnode root, pnode new_node)
 			if (now->get_left() == NULL)
 			{
 				now->set_left(new_node);
-				printf("Insertion of %d succesful! \n", new_node->get_key());
+				//printf("Insertion of %d succesful! \n", new_node->get_key());
 				return;
 			}
 			now = now->get_left();
@@ -42,7 +42,7 @@ void insert_to_tree(pnode root, pnode new_node)
 			if (now->get_right() == NULL)
 			{
 				now->set_right(new_node);
-				printf("Insertion of %d succesful! \n", new_node->get_key());
+				//printf("Insertion of %d succesful! \n", new_node->get_key());
 				return;
 			}
 			now = now->get_right();
