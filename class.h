@@ -4,6 +4,8 @@
 #include <cstdio>
 #include <time.h>
 
+#define ar_size 10000
+
 class node {
     typedef node* pnode;
 public:

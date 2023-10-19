@@ -88,30 +88,32 @@ pnode node::maketree(uint32_t *arr, int size) {
         printf("ERROR! Invalid count!!!\n");
         return nullptr;
     }
-    pnode root = new node(arr[0]);
-    int arr_ind = 1;
+    pnode root = new node(arr[size/2]);
+    int arr_ind = 0;
 
 
     pnode now_node = root;
     while (arr_ind < size)
     {
-        pnode new_node = new node(arr[arr_ind]);
-        node::insert_to_tree(root,new_node);
+        if (arr_ind!=size/2) {
+            pnode new_node = new node(arr[arr_ind]);
+            node::insert_to_tree(root, new_node);
+            printf("%s %d \n", "Iteration: ", arr_ind);
+        }
         arr_ind++;
-
     }
     return root;
 }
 
 uint32_t *node::generate_new_array(uint32_t * arr) {
-    for (int i=0;i<1000000;i++)
+    for (int i=0;i<ar_size;i++)
     {
         arr[i] = i+1;
     }
     srand(time(NULL));
-    for(int i=0;i<1000000;i++) {
+    for(int i=0;i<ar_size;i++) {
 
-        int ind1 = rand() % 1000001, ind2 = rand() % 1000001;
+        int ind1 = rand() % (ar_size+1), ind2 = rand() % (ar_size+1);
         if (ind1!=ind2) {
             uint32_t tmp = arr[ind1];
             arr[ind1] = arr[ind2];
