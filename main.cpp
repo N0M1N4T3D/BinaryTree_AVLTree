@@ -1,4 +1,3 @@
-//#include "making_search_tree.h"
 #include "class.h"
 
 int main()
