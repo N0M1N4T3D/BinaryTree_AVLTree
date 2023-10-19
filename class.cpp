@@ -23,3 +23,15 @@ node* node::get_right()
 {
 	return this->right;
 }
+void node::set_key(uint32_t num)
+{
+	this->key = num;
+}
+void node::set_left(node *left)
+{
+	this->left = left;
+}
+void node::set_right(node *right)
+{
+	this->left = right;
+}
