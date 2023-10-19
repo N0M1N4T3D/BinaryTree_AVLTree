@@ -33,5 +33,5 @@ void node::set_left(node *left)
 }
 void node::set_right(node *right)
 {
-	this->left = right;
+	this->right = right;
 }
