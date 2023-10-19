@@ -36,7 +36,7 @@ void node::set_right(node *right)
 	this->right = right;
 }
 
-void node::print_tree_for_debugging(node *root, int n) {
+void node::print_tree_for_debugging(pnode root, int n) {
     if (!root)
         return;
     if (root->get_right()!=nullptr);
