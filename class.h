@@ -34,25 +34,3 @@ private:
     uint32_t key;
     node* right;
 };
-
-
-//пока что не используется, на будущее может пригодится
-class avl_node:public node{
-
-    pavl left;
-    pavl right;
-    uint32_t key;
-    int8_t balance_factor;
-
-    static pavl  right_rotation(pavl pivot);
-    static pavl left_rotation(pavl pivot);
-    static int8_t balance_tree(pavl root, int8_t h);
-
-public:
-    void set_balance_factor(int8_t x);
-    int8_t get_balance_factor();
-    avl_node();
-    avl_node(uint32_t num);
-
-    static void insert_element(pavl root, pavl node);
-};
