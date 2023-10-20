@@ -94,14 +94,14 @@ pnode node::maketree_search(int *arr, int size, int iter_show_flag) {
 
 
     pnode now_node = root;
-    while (arr_ind < size)
+    while (arr_ind < size-1)
     {
         if (iter_show_flag) {
             if (arr_ind != size / 2) {
                 pnode new_node = new node(arr[arr_ind]);
                 node::insert_to_tree(root, new_node);
                 if (arr_ind%5000==0)
-                    printf("%s %d \n", "Iteration: ", arr_ind+1);
+                    printf("%s %d \n", "Iteration: ", arr_ind);
             }
         }
         else
@@ -113,7 +113,7 @@ pnode node::maketree_search(int *arr, int size, int iter_show_flag) {
         }
         arr_ind++;
     }
-    printf("%s %d \n","Tree created succesfully, number of elements: ",arr_ind);
+    printf("%s %d \n","Tree created succesfully, number of elements: ",arr_ind+1);
     return root;
 }
 
@@ -147,7 +147,7 @@ void node::put_tree_into_file() {
             out << "#";
             return;
         }
-        out << std::to_string(this->key) + " ";
+        out << "/" + std::to_string(this->key) +"/";
         out.close();
         this->left->put_tree_into_file();
         this->right->put_tree_into_file();
@@ -162,17 +162,43 @@ void node::put_tree_into_file() {
 pnode node::get_tree_from_file() {
     //не получилось, нужно наверное заносить в бинарный файл и считывать структурами с ключами
     std::ifstream in(file_way);
+    pnode root = new node;
+    root = help_read_recurse_func(root,in);
+    in.close();
+    return root;
 }
 
 int node::char_to_digit(char ch) {
-    for (int i=48;i<58;i++)
+
+        return (int)(ch)%48;
+
+    return -1;
+}
+
+pnode node::help_read_recurse_func(pnode root, std::ifstream &in) {
+    char ch;
+    root=new node;
+    if (in >> std::noskipws >> ch)
     {
-        if ((int)(ch)%i==0);
+        if (ch=='#')
         {
-            return i-48;
+            return nullptr;
+        }
+        else if (ch=='/') {
+            int num=0;
+            while (in >> std::noskipws >> ch)
+            {
+                if (ch=='/')
+                    break;
+                else
+                    num = num*10 + char_to_digit(ch);
+            }
+            root->key=num;
+            root->left=help_read_recurse_func(root->left,in);
+            root->right=help_read_recurse_func(root->right,in);
         }
     }
-    return -1;
+    return root;
 }
 
 node* search(node* n, int a) {
