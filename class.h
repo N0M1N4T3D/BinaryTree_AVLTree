@@ -16,7 +16,7 @@ public:
 	node* get_right();
 
 	static void print_tree_for_debugging(pnode root, int n);
-    static pnode maketree(uint32_t * arr, int size, int iter_show_flag=0);
+    static pnode maketree_search(uint32_t * arr, int size, int iter_show_flag=0);
     static uint32_t * generate_new_array(uint32_t * arr);
 
 	void set_key(uint32_t num);

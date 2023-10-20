@@ -82,7 +82,7 @@ void node::insert_to_tree(pnode root, pnode new_node) {
             return;
     }
 }
-pnode node::maketree(uint32_t *arr, int size, int iter_show_flag) {
+pnode node::maketree_search(uint32_t *arr, int size, int iter_show_flag) {
     if (size == 0)
     {
         printf("ERROR! Invalid count!!!\n");
