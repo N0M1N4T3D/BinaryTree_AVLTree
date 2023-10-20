@@ -51,6 +51,7 @@ void node::print_tree_for_debugging(pnode root, int n) {
     if (root->left!=nullptr);
     print_tree_for_debugging(root->left,n+5);
 }
+
 void node::insert_to_tree(pnode root, pnode new_node) {
     pnode now = root;
     while (1)
@@ -81,6 +82,7 @@ void node::insert_to_tree(pnode root, pnode new_node) {
             return;
     }
 }
+
 pnode node::maketree_search(uint32_t *arr, int size, int iter_show_flag) {
     if (size == 0)
     {
@@ -98,7 +100,8 @@ pnode node::maketree_search(uint32_t *arr, int size, int iter_show_flag) {
             if (arr_ind != size / 2) {
                 pnode new_node = new node(arr[arr_ind]);
                 node::insert_to_tree(root, new_node);
-                printf("%s %d \n", "Iteration: ", arr_ind+1);
+                if (arr_ind%5000==0)
+                    printf("%s %d \n", "Iteration: ", arr_ind+1);
             }
         }
         else
@@ -110,15 +113,17 @@ pnode node::maketree_search(uint32_t *arr, int size, int iter_show_flag) {
         }
         arr_ind++;
     }
+    printf("%s %d","Tree created succesfully, number of elements: ",arr_ind);
     return root;
 }
+
 uint32_t *node::generate_new_array(uint32_t * arr) {
     for (int i=0;i<ar_size;i++)
     {
         arr[i] = i+1;
     }
     srand(time(NULL));
-    for(int i=0;i<3*ar_size;i++) {
+    for(int i=0;i<100*ar_size;i++) {
 
         int ind1 = rand() % (ar_size+1), ind2 = rand() % (ar_size+1);
         if (ind1!=ind2) {
@@ -129,6 +134,7 @@ uint32_t *node::generate_new_array(uint32_t * arr) {
     }
     return arr;
 }
+
 int8_t avl_node::get_balance_factor() {
     return this->balance_factor;
 }
@@ -149,17 +155,44 @@ pavl avl_node::left_rotation(pavl pivot) {
     tmp->left = pivot;
     return tmp;
 }
+
 avl_node::avl_node(uint32_t num) {
     this->key = num;
     this->left= nullptr;
     this->right= nullptr;
+    balance_factor=0;
 }
+
 avl_node::avl_node() {
     this->left= nullptr;
     this->right= nullptr;
+    balance_factor=0;
 }
 
 void avl_node::insert_element(pavl root,pavl node) {
+    if (!root)
+    {
+        root = node;
+
+        return;
+    }
+    if (node->key<root->key)
+    {
+        insert_element(root->left,node);
+    }
+    else if (node->key>root->key)
+    {
+        insert_element(root->right,node);
+    }
+    else
+        printf("%s", "element with this key already exists");
+}
+
+int8_t avl_node::balance_tree(pavl root, int8_t h) {
+    if (root->left)
+        int8_t hl = balance_tree(root->left,h+1);
+    if (root->right)
+        int8_t hr = balance_tree(root->right,h+1);
 
 }
 

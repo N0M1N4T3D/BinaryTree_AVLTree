@@ -3,8 +3,9 @@
 #include <string>
 #include <cstdio>
 #include <time.h>
+#include <fstream>
 
-#define ar_size 10000
+#define ar_size 1000000
 
 class node;
 class avl_node;
@@ -34,6 +35,8 @@ private:
     node* right;
 };
 
+
+//пока что не используется, на будущее может пригодится
 class avl_node:public node{
 
     pavl left;
@@ -43,6 +46,7 @@ class avl_node:public node{
 
     static pavl  right_rotation(pavl pivot);
     static pavl left_rotation(pavl pivot);
+    static int8_t balance_tree(pavl root, int8_t h);
 
 public:
     void set_balance_factor(int8_t x);
@@ -51,5 +55,4 @@ public:
     avl_node(uint32_t num);
 
     static void insert_element(pavl root, pavl node);
-
 };
