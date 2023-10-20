@@ -135,18 +135,44 @@ int *node::generate_new_array(int * arr) {
     return arr;
 }
 
+//нужно переделать в запись в бинарный файл по структурам
 void node::put_tree_into_file() {
-    std::fstream out(file_way,std::ios_base::out);
+    std::ofstream out(file_way,std::ios_base::app);
     if (out.is_open())
     {
-        printf("%s \n","File opened!");
-        out << "Test text\n" << "Hi";
+        //printf("%s \n","File opened!");
+
+        if (!this)
+        {
+            out << "#";
+            return;
+        }
+        out << std::to_string(this->key) + " ";
+        out.close();
+        this->left->put_tree_into_file();
+        this->right->put_tree_into_file();
     }
     else
     {
         printf("%s \n","Error occured!");
     }
-    out.close();
+
+}
+
+pnode node::get_tree_from_file() {
+    //не получилось, нужно наверное заносить в бинарный файл и считывать структурами с ключами
+    std::ifstream in(file_way);
+}
+
+int node::char_to_digit(char ch) {
+    for (int i=48;i<58;i++)
+    {
+        if ((int)(ch)%i==0);
+        {
+            return i-48;
+        }
+    }
+    return -1;
 }
 
 

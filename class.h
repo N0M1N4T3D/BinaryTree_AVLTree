@@ -5,7 +5,7 @@
 #include <time.h>
 #include <fstream>
 
-#define ar_size 1000
+#define ar_size 10
 #define file_way "C:\\Codes_progr\\tree.txt"
 
 class node;
@@ -33,6 +33,7 @@ public:
 
 private:
     static void insert_to_tree(pnode root, pnode new_node);
+    static int char_to_digit(char ch);
     node* left;
     int key;
     node* right;
