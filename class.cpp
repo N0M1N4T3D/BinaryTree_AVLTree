@@ -175,5 +175,15 @@ int node::char_to_digit(char ch) {
     return -1;
 }
 
-
-
+node* search(node* n, int a) {
+    if (n == NULL){
+        return NULL;
+    }
+    else if (a < n->get_key()){
+        return search(n->get_left(), a);
+    }
+    else if (a > n->get_key()) {
+        return search(n->get_right(), a);
+    }
+    return n;
+}
