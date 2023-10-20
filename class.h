@@ -5,7 +5,8 @@
 #include <time.h>
 #include <fstream>
 
-#define ar_size 1000000
+#define ar_size 1000
+#define file_way "C:\\Codes_progr\\tree.txt"
 
 class node;
 class avl_node;
@@ -16,21 +17,23 @@ class node {
 public:
 	node();
 	node(int k);
-	uint32_t get_key();
+	int get_key();
 	node* get_left();
 	node* get_right();
 
 	static void print_tree_for_debugging(pnode root, int n);
-    static pnode maketree_search(uint32_t * arr, int size, int iter_show_flag=0);
-    static uint32_t * generate_new_array(uint32_t * arr);
+    static pnode maketree_search(int * arr, int size, int iter_show_flag=0);
+    static int * generate_new_array(int * arr);
 
-	void set_key(uint32_t num);
+	void set_key(int num);
 	void set_left(node * left);
 	void set_right(node * right);
+    void put_tree_into_file();
+    pnode get_tree_from_file();
 
 private:
     static void insert_to_tree(pnode root, pnode new_node);
     node* left;
-    uint32_t key;
+    int key;
     node* right;
 };

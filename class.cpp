@@ -11,7 +11,7 @@ node::node(int k)
 	this->left = nullptr;
 	this->right = nullptr;
 }
-uint32_t node::get_key()
+int node::get_key()
 {
 	return this->key;
 }
@@ -23,7 +23,7 @@ node* node::get_right()
 {
 	return this->right;
 }
-void node::set_key(uint32_t num)
+void node::set_key(int num)
 {
 	this->key = num;
 }
@@ -83,7 +83,7 @@ void node::insert_to_tree(pnode root, pnode new_node) {
     }
 }
 
-pnode node::maketree_search(uint32_t *arr, int size, int iter_show_flag) {
+pnode node::maketree_search(int *arr, int size, int iter_show_flag) {
     if (size == 0)
     {
         printf("ERROR! Invalid count!!!\n");
@@ -113,11 +113,11 @@ pnode node::maketree_search(uint32_t *arr, int size, int iter_show_flag) {
         }
         arr_ind++;
     }
-    printf("%s %d","Tree created succesfully, number of elements: ",arr_ind);
+    printf("%s %d \n","Tree created succesfully, number of elements: ",arr_ind);
     return root;
 }
 
-uint32_t *node::generate_new_array(uint32_t * arr) {
+int *node::generate_new_array(int * arr) {
     for (int i=0;i<ar_size;i++)
     {
         arr[i] = i+1;
@@ -127,12 +127,27 @@ uint32_t *node::generate_new_array(uint32_t * arr) {
 
         int ind1 = rand() % (ar_size+1), ind2 = rand() % (ar_size+1);
         if (ind1!=ind2) {
-            uint32_t tmp = arr[ind1];
+            int tmp = arr[ind1];
             arr[ind1] = arr[ind2];
             arr[ind2] = tmp;
         }
     }
     return arr;
 }
+
+void node::put_tree_into_file() {
+    std::fstream out(file_way,std::ios_base::out);
+    if (out.is_open())
+    {
+        printf("%s \n","File opened!");
+        out << "Test text\n" << "Hi";
+    }
+    else
+    {
+        printf("%s \n","Error occured!");
+    }
+    out.close();
+}
+
 
 
