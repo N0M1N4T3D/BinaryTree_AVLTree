@@ -35,7 +35,6 @@ void node::set_right(node *right)
 {
 	this->right = right;
 }
-
 void node::print_tree_for_debugging(pnode root, int n) {
     if (!root)
         return;
@@ -113,7 +112,6 @@ pnode node::maketree_search(uint32_t *arr, int size, int iter_show_flag) {
     }
     return root;
 }
-
 uint32_t *node::generate_new_array(uint32_t * arr) {
     for (int i=0;i<ar_size;i++)
     {
@@ -131,16 +129,37 @@ uint32_t *node::generate_new_array(uint32_t * arr) {
     }
     return arr;
 }
-
-int8_t node::get_balance_factor() {
+int8_t avl_node::get_balance_factor() {
     return this->balance_factor;
 }
-
-void node::set_balance_factor(int8_t x) {
+void avl_node::set_balance_factor(int8_t x) {
     this->balance_factor=x;
 }
+//исправление левого перекоса
+pavl avl_node::right_rotation(pavl pivot) {
+    pavl tmp = pivot->left;
+    pivot->left = pivot->left->right;
+    tmp->right = pivot;
+    return tmp;
+}
+//исправление правого перекоса
+pavl avl_node::left_rotation(pavl pivot) {
+    pavl tmp = pivot->right;
+    pivot->right = pivot->right->left;
+    tmp->left = pivot;
+    return tmp;
+}
+avl_node::avl_node(uint32_t num) {
+    this->key = num;
+    this->left= nullptr;
+    this->right= nullptr;
+}
+avl_node::avl_node() {
+    this->left= nullptr;
+    this->right= nullptr;
+}
 
-void node::right_rotation(pnode pivot) {
-
+void avl_node::insert_element(pavl root,pavl node) {
 
 }
+

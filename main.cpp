@@ -5,12 +5,18 @@ uint32_t array_main[ar_size];
 
 int main()
 {
-    //print_array_main();
-	//node::generate_new_array(array_main);
+    pavl root = new avl_node(45);
+    pavl l1 = new avl_node(39);
+    pavl r1 = new avl_node(51);
+    pavl l1r1 = new avl_node(40);
+    pavl l2 = new avl_node(37);
+    pavl l2r1 = new avl_node(38);
+    root->set_left(l1);
+    root->set_right(r1);
+    l1->set_left(l2);
+    l1->set_right(l1r1);
+    l2->set_right(l2r1);
 
-	pnode root = new node();
-	root = node::maketree_search(array_main, ar_size,1);
-	node::print_tree_for_debugging(root, 0);
 
     return 0;
 }
