@@ -94,6 +94,7 @@ pnode node::maketree_search(int *arr, int size, int iter_show_flag) {
 
 
     pnode now_node = root;
+    printf("Making tree with %d elements \n",ar_size);
     while (arr_ind < size-1)
     {
         if (iter_show_flag) {
@@ -138,24 +139,7 @@ int *node::generate_new_array(int * arr) {
 //нужно переделать в запись в бинарный файл по структурам
 void node::put_tree_into_file() {
     std::ofstream out(file_way,std::ios_base::app);
-    if (out.is_open())
-    {
-        //printf("%s \n","File opened!");
-
-        if (!this)
-        {
-            out << "#";
-            return;
-        }
-        out << "/" + std::to_string(this->key) +"/";
-        out.close();
-        this->left->put_tree_into_file();
-        this->right->put_tree_into_file();
-    }
-    else
-    {
-        printf("%s \n","Error occured!");
-    }
+    help_insert_recurse_func(this,out);
 
 }
 
@@ -199,6 +183,24 @@ pnode node::help_read_recurse_func(pnode root, std::ifstream &in) {
         }
     }
     return root;
+}
+
+void node::help_insert_recurse_func(pnode root, std::ofstream &out) {
+    if (out.is_open())
+    {
+        if (!root)
+        {
+            out << "#";
+            return;
+        }
+        out << "/" + std::to_string(root->key) +"/";
+        help_insert_recurse_func(root->left,out);
+        help_insert_recurse_func(root->right, out);
+    }
+    else
+    {
+        printf("%s \n","Error occured!");
+    }
 }
 
 node* search(node* n, int a) {

@@ -5,7 +5,7 @@
 #include <time.h>
 #include <fstream>
 
-#define ar_size 10
+#define ar_size 40000
 //сюда свой файл напишите, где создаваться ему...
 #define file_way "C:\\Codes_progr\\tree.txt"
 
@@ -33,6 +33,7 @@ public:
 
 private:
     pnode help_read_recurse_func(pnode root,std::ifstream &in);
+    void help_insert_recurse_func(pnode root, std::ofstream &out);
     static void insert_to_tree(pnode root, pnode new_node);
     static int char_to_digit(char ch);
     node* left;
