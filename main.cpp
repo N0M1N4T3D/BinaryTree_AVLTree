@@ -6,7 +6,8 @@ uint32_t array_main[ar_size];
 int main()
 {
     //print_array_main();
-	node::generate_new_array(array_main);
+	//node::generate_new_array(array_main);
+
 	pnode root = new node();
 	root = node::maketree_search(array_main, ar_size,1);
 	node::print_tree_for_debugging(root, 0);

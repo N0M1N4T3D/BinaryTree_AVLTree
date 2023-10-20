@@ -39,44 +39,44 @@ void node::set_right(node *right)
 void node::print_tree_for_debugging(pnode root, int n) {
     if (!root)
         return;
-    if (root->get_right()!=nullptr);
-    print_tree_for_debugging(root->get_right(),n+5);
+    if (root->right!=nullptr);
+    print_tree_for_debugging(root->right,n+5);
 
     for (int i = 0; i < n; i++)
     {
         printf("%s", " ");
     }
-    printf("%d", root->get_key());
+    printf("%d", root->key);
     printf("%s", "\n");
 
-    if (root->get_left()!=nullptr);
-    print_tree_for_debugging(root->get_left(),n+5);
+    if (root->left!=nullptr);
+    print_tree_for_debugging(root->left,n+5);
 }
 void node::insert_to_tree(pnode root, pnode new_node) {
     pnode now = root;
     while (1)
     {
 
-        if (new_node->get_key() < now->get_key())
+        if (new_node->key < now->key)
         {
 
-            if (now->get_left() == NULL)
+            if (now->left == NULL)
             {
-                now->set_left(new_node);
+                now->left=new_node;
                 //printf("Insertion of %d succesful! \n", new_node->get_key());
                 return;
             }
-            now = now->get_left();
+            now = now->left;
         }
-        else if (new_node->get_key() > now->get_key())
+        else if (new_node->key > now->key)
         {
-            if (now->get_right() == NULL)
+            if (now->right == NULL)
             {
-                now->set_right(new_node);
+                now->right=new_node;
                 //printf("Insertion of %d succesful! \n", new_node->get_key());
                 return;
             }
-            now = now->get_right();
+            now = now->right;
         }
         else
             return;
@@ -130,4 +130,17 @@ uint32_t *node::generate_new_array(uint32_t * arr) {
         }
     }
     return arr;
+}
+
+int8_t node::get_balance_factor() {
+    return this->balance_factor;
+}
+
+void node::set_balance_factor(int8_t x) {
+    this->balance_factor=x;
+}
+
+void node::right_rotation(pnode pivot) {
+
+
 }
