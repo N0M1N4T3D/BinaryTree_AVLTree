@@ -12,11 +12,8 @@
 #define bin_file_way "C:\\Codes_progr\\tree_b.bin"
 
 struct file_struct{
-    char *key;
-    file_struct()
-    {
-        key = new char[8];
-    }
+    char key[8];
+
 };
 
 class node;
@@ -41,8 +38,8 @@ public:
     void put_tree_into_file_txt();
     pnode get_tree_from_file_txt();
 
-    void put_tree_into_file_bin();
-    pnode get_tree_from_file_bin();
+    //void put_tree_into_file_bin();
+    //pnode get_tree_from_file_bin();
 
 private:
     pnode help_read_recurse_func_txt(pnode root,std::ifstream &in);

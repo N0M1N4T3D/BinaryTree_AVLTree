@@ -216,18 +216,7 @@ void node::put_tree_into_file_bin() {
     fclose(f);
 }
 
-pnode node::get_tree_from_file_bin() {
-    pnode root = new node();
-    FILE * f;
-    f = fopen(bin_file_way,"rb");
-    file_struct a1;
-    fread(reinterpret_cast<char*> (&a1),sizeof(file_struct),1,f);
-    printf("%s \n",a1.key);
-    file_struct a2;
-    fread(reinterpret_cast<char*> (&a2),sizeof(file_struct),1,f);
-    printf("%s \n",a2.key);
-    return root;
-}
+
 
 node* search(node* n, int a) {
     if (n == NULL){

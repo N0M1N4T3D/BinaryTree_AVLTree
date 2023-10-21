@@ -21,9 +21,8 @@ int main()
     node::generate_new_array(array_main);
 
     //тестовая функция для бинарного файла...
-    pnode root = new node();
     //root->put_tree_into_file_bin();
-    root->get_tree_from_file_bin();
+
     //создание дерева и запихивание его в файл
 //    pnode root = new node();
 //    root = node::maketree_search(array_main,ar_size,1);
