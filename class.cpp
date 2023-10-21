@@ -1,4 +1,5 @@
 #include "class.h"
+int counter_write=0;
 node::node()
 {
 	this->key = -1;
@@ -135,64 +136,8 @@ int *node::generate_new_array(int * arr) {
     }
     return arr;
 }
-
-//нужно переделать в запись в бинарный файл по структурам
-void node::put_tree_into_file_txt() {
-    std::ofstream out(file_way,std::ios_base::app);
-    help_insert_recurse_func_txt(this,out);
-}
-pnode node::get_tree_from_file_txt() {
-    //не получилось, нужно наверное заносить в бинарный файл и считывать структурами с ключами
-    std::ifstream in(file_way);
-    pnode root = new node;
-    root = help_read_recurse_func_txt(root,in);
-    in.close();
-    return root;
-}
 int node::char_to_digit(char ch) {
         return (int)(ch)%48;
-}
-pnode node::help_read_recurse_func_txt(pnode root, std::ifstream &in) {
-    char ch;
-    root=new node;
-    if (in >> std::noskipws >> ch)
-    {
-        if (ch=='#')
-        {
-            return nullptr;
-        }
-        else if (ch=='/') {
-            int num=0;
-            while (in >> std::noskipws >> ch)
-            {
-                if (ch=='/')
-                    break;
-                else
-                    num = num*10 + char_to_digit(ch);
-            }
-            root->key=num;
-            root->left=help_read_recurse_func_txt(root->left,in);
-            root->right=help_read_recurse_func_txt(root->right,in);
-        }
-    }
-    return root;
-}
-void node::help_insert_recurse_func_txt(pnode root, std::ofstream &out) {
-    if (out.is_open())
-    {
-        if (!root)
-        {
-            out << "#";
-            return;
-        }
-        out << "/" + std::to_string(root->key) +"/";
-        help_insert_recurse_func_txt(root->left,out);
-        help_insert_recurse_func_txt(root->right, out);
-    }
-    else
-    {
-        printf("%s \n","Error occured!");
-    }
 }
 void node::init_dfs_bin_to_f(pnode root) {
     FILE * f;
@@ -201,29 +146,33 @@ void node::init_dfs_bin_to_f(pnode root) {
     fclose(f);
 }
 void node::dfs_bin_to_f(pnode root, FILE *f) {
-
-    char tmp1[10] = "#########";
+    if (counter_write%5000==0)
+    {
+        printf("%s %d \n", "Went data count: ", counter_write);
+    }
+    char tmp1[10] = "#";
     only_str_10bytes s2;
     strcpy_s(s2.key,tmp1);
     if (!root)
     {
         fwrite(&s2,1,sizeof(s2),f);
+        counter_write++;
         return;
     }
-    only_str_10bytes s1;
-    char tmp[10];
-    //функция конвертации в char
-    char num[10];
-    _itoa_s(root->key,num,10);
-    strcpy_s(s1.key,num);
-    fwrite(&s1,1,sizeof(s1),f);
-    dfs_bin_to_f(root->left,f);
-    dfs_bin_to_f(root->right, f);
+    else {
+        only_str_10bytes s1;
+        char tmp[10];
+        char num[10];
+        _itoa_s(root->key, num, 10);
+        strcpy_s(s1.key, num);
+        fwrite(&s1, 1, sizeof(s1), f);
+        counter_write++;
+        dfs_bin_to_f(root->left, f);
+        dfs_bin_to_f(root->right, f);
+    }
 }
 pnode node::dfs_bin_from_f(pnode root, FILE *f) {
-
-    char octothorpe[10] = "#########";
-
+    char octothorpe[10] = "#";
     root = new node;
     char buf_for_readen_key[10];
     only_str_10bytes buf_for_struct;
@@ -241,7 +190,6 @@ pnode node::dfs_bin_from_f(pnode root, FILE *f) {
     }
     return root;
 }
-
 pnode node::init_dfs_bin_from_f(pnode root) {
     FILE * f;
     fopen_s(&f,bin_file_way,"rb");
@@ -249,6 +197,13 @@ pnode node::init_dfs_bin_from_f(pnode root) {
     root = dfs_bin_from_f(root,f);
     fclose(f);
     return root;
+}
+void node::KLP(pnode root) {
+    if (root!=NULL) {
+        printf("%d", root->key);
+        KLP(root->left);
+        KLP(root->right);
+    }
 }
 
 node* search(node* n, int a) {

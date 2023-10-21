@@ -8,16 +8,13 @@
 #include <fstream>
 #include <string>
 
-#define ar_size 100000
+#define ar_size 80000
 //сюда свой файл напишите, где создаваться ему...
 #define file_way "C:\\Codes_progr\\tree.txt"
 #define bin_file_way "C:\\Codes_progr\\tree_b.bin"
-int to_file_counter=0;
-int from_file_reader=0;
-
 
 struct only_str_10bytes{
-    char key[10];
+    char key[6];
 };
 
 class node;
@@ -39,8 +36,7 @@ public:
 	void set_key(int num);
 	void set_left(node * left);
 	void set_right(node * right);
-    void put_tree_into_file_txt();
-    pnode get_tree_from_file_txt();
+    void KLP(pnode root);
 
     static pnode init_dfs_bin_from_f(pnode root);
     static void init_dfs_bin_to_f(pnode root);
@@ -49,9 +45,6 @@ private:
     static pnode dfs_bin_from_f(pnode root, FILE *f);
     static void dfs_bin_to_f(pnode root, FILE * f);
 
-    //уберу эти две, потому что на 45к ломается
-    pnode help_read_recurse_func_txt(pnode root,std::ifstream &in);
-    void help_insert_recurse_func_txt(pnode root, std::ofstream &out);
     static void insert_to_tree(pnode root, pnode new_node);
     static int char_to_digit(char ch);
     node* left;
