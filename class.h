@@ -1,6 +1,7 @@
 #pragma once
 #include <cstdint>
 #include <string.h>
+#include <string>
 #include <stdio.h>
 #include <cstdio>
 #include <time.h>
@@ -22,20 +23,20 @@ typedef node* pnode;
 
 class node {
 public:
-	node();
-	node(int k);
-	int get_key();
-	node* get_left();
-	node* get_right();
+    node();
+    node(int k);
+    int get_key();
+    node* get_left();
+    node* get_right();
 
-	static void print_tree_for_debugging(pnode root, int n);
+    static void print_tree_for_debugging(pnode root, int n);
     static pnode maketree_search(int * arr, int size, int iter_show_flag=0);
     static int * generate_new_array(int * arr);
 
     node* search(node* n, int a);
-	void set_key(int num);
-	void set_left(node * left);
-	void set_right(node * right);
+    void set_key(int num);
+    void set_left(node * left);
+    void set_right(node * right);
     void put_tree_into_file_txt();
     pnode get_tree_from_file_txt();
 
