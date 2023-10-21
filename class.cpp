@@ -203,21 +203,6 @@ void node::help_insert_recurse_func_txt(pnode root, std::ofstream &out) {
     }
 }
 
-void node::put_tree_into_file_bin() {
-    FILE * f;
-    f = fopen(bin_file_way,"wb");
-    file_struct a1, a2;
-    char tmp[8] = "abcde";
-    char tmp2[8] = "abcdefg";
-    strcpy(a1.key, tmp);
-    strcpy(a2.key, tmp2);
-    fwrite(reinterpret_cast<char*> (&a1),sizeof(file_struct),1,f);
-    fwrite(reinterpret_cast<char*> (&a2),sizeof(file_struct),1,f);
-    fclose(f);
-}
-
-
-
 node* search(node* n, int a) {
     if (n == NULL){
         return NULL;
