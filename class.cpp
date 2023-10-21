@@ -95,7 +95,7 @@ pnode node::maketree_search(int *arr, int size, int iter_show_flag) {
 
     pnode now_node = root;
     printf("Making tree with %d elements \n",ar_size);
-    while (arr_ind < size-1)
+    while (arr_ind < size)
     {
         if (iter_show_flag) {
             if (arr_ind != size / 2) {
@@ -114,7 +114,7 @@ pnode node::maketree_search(int *arr, int size, int iter_show_flag) {
         }
         arr_ind++;
     }
-    printf("%s %d \n","Tree created succesfully, number of elements: ",arr_ind+1);
+    printf("%s %d \n","Tree created succesfully, number of elements: ",arr_ind);
     return root;
 }
 
@@ -150,10 +150,7 @@ pnode node::get_tree_from_file_txt() {
     return root;
 }
 int node::char_to_digit(char ch) {
-
         return (int)(ch)%48;
-
-    return -1;
 }
 pnode node::help_read_recurse_func_txt(pnode root, std::ifstream &in) {
     char ch;
@@ -180,7 +177,6 @@ pnode node::help_read_recurse_func_txt(pnode root, std::ifstream &in) {
     }
     return root;
 }
-
 void node::help_insert_recurse_func_txt(pnode root, std::ofstream &out) {
     if (out.is_open())
     {
@@ -198,21 +194,17 @@ void node::help_insert_recurse_func_txt(pnode root, std::ofstream &out) {
         printf("%s \n","Error occured!");
     }
 }
-
 void node::init_dfs_bin_to_f(pnode root) {
     FILE * f;
-    f = fopen(bin_file_way,"wb");
+    fopen_s(&f,bin_file_way,"wb");
     dfs_bin_to_f(root,f);
-    //fclose(f);
+    fclose(f);
 }
-
 void node::dfs_bin_to_f(pnode root, FILE *f) {
-    struct only_str_10bytes{
-        char key[10];
-    };
+
     char tmp1[10] = "#########";
     only_str_10bytes s2;
-    strcpy(s2.key,tmp1);
+    strcpy_s(s2.key,tmp1);
     if (!root)
     {
         fwrite(&s2,1,sizeof(s2),f);
@@ -220,34 +212,31 @@ void node::dfs_bin_to_f(pnode root, FILE *f) {
     }
     only_str_10bytes s1;
     char tmp[10];
-    strcpy(s1.key,_itoa(root->get_key(),tmp,10));
+    //функция конвертации в char
+    char num[10];
+    _itoa_s(root->key,num,10);
+    strcpy_s(s1.key,num);
     fwrite(&s1,1,sizeof(s1),f);
-    dfs_bin_to_f(root->get_left(),f);
-    dfs_bin_to_f(root->get_right(), f);
+    dfs_bin_to_f(root->left,f);
+    dfs_bin_to_f(root->right, f);
 }
-
 pnode node::dfs_bin_from_f(pnode root, FILE *f) {
-    struct only_str_10bytes{
-        char key[10];
-    };
-    char tmp1[10] = "#########";
-    only_str_10bytes s2;
-    strcpy(s2.key,tmp1);
+
+    char octothorpe[10] = "#########";
+
     root = new node;
-    char read_new[10];
-    only_str_10bytes readen;
-    while (!feof(f)){
-        fread(&readen,1,sizeof(readen),f);
-        strcpy(read_new,readen.key);
-        if (!strcmp(read_new,tmp1))
-        {
+    char buf_for_readen_key[10];
+    only_str_10bytes buf_for_struct;
+    if (!feof(f)){
+        fread(&buf_for_struct,1,sizeof(buf_for_struct),f);
+        strcpy_s(buf_for_readen_key,buf_for_struct.key);
+        if (!strcmp(buf_for_readen_key, octothorpe)) {
             return nullptr;
-        }
-        else
-        {
-            root->set_key(atoi(read_new));
-            root->set_left(dfs_bin_from_f(root->get_left(),f));
-            root->set_right(dfs_bin_from_f(root->get_left(),f));
+        } else {
+
+            root->key = atoi(buf_for_readen_key);
+            root->left = dfs_bin_from_f(root->left, f);
+            root->right = dfs_bin_from_f(root->right, f);
         }
     }
     return root;
@@ -255,7 +244,8 @@ pnode node::dfs_bin_from_f(pnode root, FILE *f) {
 
 pnode node::init_dfs_bin_from_f(pnode root) {
     FILE * f;
-    f= fopen(bin_file_way,"rb");
+    fopen_s(&f,bin_file_way,"rb");
+    root = new node;
     root = dfs_bin_from_f(root,f);
     fclose(f);
     return root;

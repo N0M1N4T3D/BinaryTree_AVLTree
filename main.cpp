@@ -11,12 +11,10 @@ int array_main[ar_size];
 
 int main()
 {
-
-
     //эти 2 строки для прочистки файла, поэтому если не надо прочищать, то уберите
     //но перед запуском, где будет информация запихиваться в файл надо чистить
-    std::ofstream outf(file_way);
-    outf.close();
+    //std::ofstream outf(file_way);
+    //outf.close();
 
     //генерация массива псевдослучайных чисел
     node::generate_new_array(array_main);
@@ -25,8 +23,10 @@ int main()
     pnode root = new node();
     root = node::maketree_search(array_main,ar_size,1);
     node::init_dfs_bin_to_f(root);
-    //pnode new_root = node::init_dfs_bin_from_f(root);
-    node::print_tree_for_debugging(root,ar_size);
+    //node::print_tree_for_debugging(root,ar_size);
+    pnode new_root = node::init_dfs_bin_from_f(new_root);
+    //printf("\n\n\n\n\n\n");
+    //node::print_tree_for_debugging(new_root,ar_size);
 
     printf("Ending of programm");
     return 0;
