@@ -137,17 +137,17 @@ int *node::generate_new_array(int * arr) {
 }
 
 //нужно переделать в запись в бинарный файл по структурам
-void node::put_tree_into_file() {
+void node::put_tree_into_file_txt() {
     std::ofstream out(file_way,std::ios_base::app);
-    help_insert_recurse_func(this,out);
+    help_insert_recurse_func_txt(this,out);
 
 }
 
-pnode node::get_tree_from_file() {
+pnode node::get_tree_from_file_txt() {
     //не получилось, нужно наверное заносить в бинарный файл и считывать структурами с ключами
     std::ifstream in(file_way);
     pnode root = new node;
-    root = help_read_recurse_func(root,in);
+    root = help_read_recurse_func_txt(root,in);
     in.close();
     return root;
 }
@@ -159,7 +159,7 @@ int node::char_to_digit(char ch) {
     return -1;
 }
 
-pnode node::help_read_recurse_func(pnode root, std::ifstream &in) {
+pnode node::help_read_recurse_func_txt(pnode root, std::ifstream &in) {
     char ch;
     root=new node;
     if (in >> std::noskipws >> ch)
@@ -178,14 +178,14 @@ pnode node::help_read_recurse_func(pnode root, std::ifstream &in) {
                     num = num*10 + char_to_digit(ch);
             }
             root->key=num;
-            root->left=help_read_recurse_func(root->left,in);
-            root->right=help_read_recurse_func(root->right,in);
+            root->left=help_read_recurse_func_txt(root->left,in);
+            root->right=help_read_recurse_func_txt(root->right,in);
         }
     }
     return root;
 }
 
-void node::help_insert_recurse_func(pnode root, std::ofstream &out) {
+void node::help_insert_recurse_func_txt(pnode root, std::ofstream &out) {
     if (out.is_open())
     {
         if (!root)
@@ -194,13 +194,39 @@ void node::help_insert_recurse_func(pnode root, std::ofstream &out) {
             return;
         }
         out << "/" + std::to_string(root->key) +"/";
-        help_insert_recurse_func(root->left,out);
-        help_insert_recurse_func(root->right, out);
+        help_insert_recurse_func_txt(root->left,out);
+        help_insert_recurse_func_txt(root->right, out);
     }
     else
     {
         printf("%s \n","Error occured!");
     }
+}
+
+void node::put_tree_into_file_bin() {
+    FILE * f;
+    f = fopen(bin_file_way,"wb");
+    file_struct a1, a2;
+    char tmp[8] = "abcde";
+    char tmp2[8] = "abcdefg";
+    strcpy(a1.key, tmp);
+    strcpy(a2.key, tmp2);
+    fwrite(reinterpret_cast<char*> (&a1),sizeof(file_struct),1,f);
+    fwrite(reinterpret_cast<char*> (&a2),sizeof(file_struct),1,f);
+    fclose(f);
+}
+
+pnode node::get_tree_from_file_bin() {
+    pnode root = new node();
+    FILE * f;
+    f = fopen(bin_file_way,"rb");
+    file_struct a1;
+    fread(reinterpret_cast<char*> (&a1),sizeof(file_struct),1,f);
+    printf("%s \n",a1.key);
+    file_struct a2;
+    fread(reinterpret_cast<char*> (&a2),sizeof(file_struct),1,f);
+    printf("%s \n",a2.key);
+    return root;
 }
 
 node* search(node* n, int a) {
