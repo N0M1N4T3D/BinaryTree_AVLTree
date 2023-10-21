@@ -72,6 +72,7 @@ int main()
     pnode root = new node();
     root = node::maketree_search(array_main,ar_size,1);
     node::init_dfs_bin_to_f(root);
+    node::print_tree_for_debugging(root,ar_size);
     pnode new_root = node::init_dfs_bin_from_f(root);
     node::print_tree_for_debugging(new_root,ar_size);
 
