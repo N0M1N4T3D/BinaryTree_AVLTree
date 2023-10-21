@@ -1,5 +1,6 @@
 #include "class.h"
 int counter_write=0;
+int insertions=0;
 node::node()
 {
 	this->key = -1;
@@ -61,20 +62,22 @@ void node::insert_to_tree(pnode root, pnode new_node) {
         if (new_node->key < now->key)
         {
 
-            if (now->left == NULL)
+            if (now->left == nullptr)
             {
                 now->left=new_node;
                 //printf("Insertion of %d succesful! \n", new_node->get_key());
+                insertions++;
                 return;
             }
             now = now->left;
         }
         else if (new_node->key > now->key)
         {
-            if (now->right == NULL)
+            if (now->right == nullptr)
             {
                 now->right=new_node;
                 //printf("Insertion of %d succesful! \n", new_node->get_key());
+                insertions++;
                 return;
             }
             now = now->right;
@@ -116,6 +119,7 @@ pnode node::maketree_search(int *arr, int size, int iter_show_flag) {
         arr_ind++;
     }
     printf("%s %d \n","Tree created succesfully, number of elements: ",arr_ind);
+    printf("%d \n",insertions);
     return root;
 }
 
@@ -124,7 +128,7 @@ int *node::generate_new_array(int * arr) {
     {
         arr[i] = i+1;
     }
-    srand(time(NULL));
+    srand(time(nullptr));
     for(int i=0;i<100*ar_size;i++) {
 
         int ind1 = rand() % (ar_size+1), ind2 = rand() % (ar_size+1);
@@ -153,8 +157,10 @@ void node::dfs_bin_to_f(pnode root, FILE *f) {
     char tmp1[10] = "#";
     only_str_10bytes s2;
     strcpy_s(s2.key,tmp1);
+
     if (!root)
     {
+
         fwrite(&s2,1,sizeof(s2),f);
         counter_write++;
         return;
@@ -199,7 +205,7 @@ pnode node::init_dfs_bin_from_f(pnode root) {
     return root;
 }
 void node::KLP(pnode root) {
-    if (root!=NULL) {
+    if (root!= nullptr) {
         printf("%d", root->key);
         KLP(root->left);
         KLP(root->right);

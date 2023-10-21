@@ -8,13 +8,13 @@
 #include <fstream>
 #include <string>
 
-#define ar_size 80000
+#define ar_size 10000
 //сюда свой файл напишите, где создаваться ему...
 #define file_way "C:\\Codes_progr\\tree.txt"
 #define bin_file_way "C:\\Codes_progr\\tree_b.bin"
 
 struct only_str_10bytes{
-    char key[6];
+    char key[10];
 };
 
 class node;
