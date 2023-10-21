@@ -199,6 +199,67 @@ void node::help_insert_recurse_func_txt(pnode root, std::ofstream &out) {
     }
 }
 
+void node::init_dfs_bin_to_f(pnode root) {
+    FILE * f;
+    f = fopen(bin_file_way,"wb");
+    dfs_bin_to_f(root,f);
+    //fclose(f);
+}
+
+void node::dfs_bin_to_f(pnode root, FILE *f) {
+    struct only_str_10bytes{
+        char key[10];
+    };
+    char tmp1[10] = "#########";
+    only_str_10bytes s2;
+    strcpy(s2.key,tmp1);
+    if (!root)
+    {
+        fwrite(&s2,1,sizeof(s2),f);
+        return;
+    }
+    only_str_10bytes s1;
+    char tmp[10];
+    strcpy(s1.key,itoa(root->get_key(),tmp,10));
+    fwrite(&s1,1,sizeof(s1),f);
+    dfs_bin_to_f(root->get_left(),f);
+    dfs_bin_to_f(root->get_right(), f);
+}
+
+pnode node::dfs_bin_from_f(pnode root, FILE *f) {
+    struct only_str_10bytes{
+        char key[10];
+    };
+    char tmp1[10] = "#########";
+    only_str_10bytes s2;
+    strcpy(s2.key,tmp1);
+    root = new node;
+    char read_new[10];
+    only_str_10bytes readen;
+    while (!feof(f)){
+        fread(&readen,1,sizeof(readen),f);
+        strcpy(read_new,readen.key);
+        if (!strcmp(read_new,tmp1))
+        {
+            return nullptr;
+        }
+        else
+        {
+            root->set_key(atoi(read_new));
+            root->set_left(dfs_bin_from_f(root->get_left(),f));
+            root->set_right(dfs_bin_from_f(root->get_left(),f));
+        }
+    }
+    return root;
+}
+
+pnode node::init_dfs_bin_from_f(pnode root) {
+    FILE * f;
+    f= fopen(bin_file_way,"rb");
+    dfs_bin_from_f(root,f);
+    //fclose(f);
+}
+
 node* search(node* n, int a) {
     if (n == NULL){
         return NULL;

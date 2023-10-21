@@ -7,7 +7,7 @@
 #include <fstream>
 #include <queue>
 
-#define ar_size 1000
+#define ar_size 10
 //сюда свой файл напишите, где создаваться ему...
 #define file_way "C:\\Codes_progr\\tree.txt"
 #define bin_file_way "C:\\Codes_progr\\tree_b.bin"
@@ -39,10 +39,14 @@ public:
     void put_tree_into_file_txt();
     pnode get_tree_from_file_txt();
 
-    //void put_tree_into_file_bin();
-    //pnode get_tree_from_file_bin();
+    static pnode init_dfs_bin_from_f(pnode root);
+    static void init_dfs_bin_to_f(pnode root);
 
 private:
+    static pnode dfs_bin_from_f(pnode root, FILE *f);
+    static void dfs_bin_to_f(pnode root, FILE * f);
+
+    //уберу эти две, потому что на 45к ломается
     pnode help_read_recurse_func_txt(pnode root,std::ifstream &in);
     void help_insert_recurse_func_txt(pnode root, std::ofstream &out);
     static void insert_to_tree(pnode root, pnode new_node);
