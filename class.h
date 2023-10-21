@@ -2,10 +2,11 @@
 #include <cstdint>
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <cstdio>
 #include <time.h>
 #include <fstream>
-#include <queue>
+#include <string>
 
 #define ar_size 10
 //сюда свой файл напишите, где создаваться ему...

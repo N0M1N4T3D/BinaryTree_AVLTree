@@ -220,7 +220,7 @@ void node::dfs_bin_to_f(pnode root, FILE *f) {
     }
     only_str_10bytes s1;
     char tmp[10];
-    strcpy(s1.key,itoa(root->get_key(),tmp,10));
+    strcpy(s1.key,_itoa(root->get_key(),tmp,10));
     fwrite(&s1,1,sizeof(s1),f);
     dfs_bin_to_f(root->get_left(),f);
     dfs_bin_to_f(root->get_right(), f);
@@ -256,8 +256,9 @@ pnode node::dfs_bin_from_f(pnode root, FILE *f) {
 pnode node::init_dfs_bin_from_f(pnode root) {
     FILE * f;
     f= fopen(bin_file_way,"rb");
-    dfs_bin_from_f(root,f);
-    //fclose(f);
+    root = dfs_bin_from_f(root,f);
+    fclose(f);
+    return root;
 }
 
 node* search(node* n, int a) {
