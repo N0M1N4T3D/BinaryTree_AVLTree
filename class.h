@@ -6,7 +6,7 @@
 #include <time.h>
 #include <fstream>
 
-#define ar_size 50000
+#define ar_size 10000
 //сюда свой файл напишите, где создаваться ему...
 #define file_way "C:\\Codes_progr\\tree.txt"
 #define bin_file_way "C:\\Codes_progr\\tree_b.bin"

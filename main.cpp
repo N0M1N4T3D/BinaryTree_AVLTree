@@ -12,6 +12,36 @@ int array_main[ar_size];
 
 int main()
 {
+    //разбираюсь с бинарниками сишными
+
+    struct tmp{
+        char str[8];
+    };
+
+    FILE * f;
+    f = fopen(bin_file_way, "wb");
+    char ch_str[8]="drdrdrd";
+    tmp ns;
+    strcpy(ns.str, ch_str);
+    for (int i=0;i<1000000;i++) {
+        fwrite(&ns, 1, sizeof(ns), f);
+    }
+    fclose(f);
+
+    f= fopen(bin_file_way,"rb");
+    tmp l;
+    for (int i=0;i<1000000;i++) {
+        fread(&l, 1, sizeof(l), f);
+        printf("%s \n", l.str);
+    }
+    fclose(f);
+
+    return 0;
+
+
+
+
+
     //эти 2 строки для прочистки файла, поэтому если не надо прочищать, то уберите
     //но перед запуском, где будет информация запихиваться в файл надо чистить
     std::ofstream outf(file_way);
@@ -24,16 +54,16 @@ int main()
     //root->put_tree_into_file_bin();
 
     //создание дерева и запихивание его в файл
-//    pnode root = new node();
-//    root = node::maketree_search(array_main,ar_size,1);
-//    root->put_tree_into_file_txt();
-//    node::print_tree_for_debugging(root,0);
+    pnode root = new node();
+    root = node::maketree_search(array_main,ar_size,1);
+    root->put_tree_into_file_txt();
+    //node::print_tree_for_debugging(root,0);
 
 
     //Доставание дерева (убирайте очистку дерева, если только это запускаете)
-//    pnode root1 = new node();
-//    root1 = root1->get_tree_from_file();
-//    node::print_tree_for_debugging(root1,0);
+    //pnode root1 = new node();
+    //root1 = root1->get_tree_from_file_txt();
+    //node::print_tree_for_debugging(root1,0);
 
     printf("Ending of programm");
     return 0;

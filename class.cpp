@@ -140,9 +140,7 @@ int *node::generate_new_array(int * arr) {
 void node::put_tree_into_file_txt() {
     std::ofstream out(file_way,std::ios_base::app);
     help_insert_recurse_func_txt(this,out);
-
 }
-
 pnode node::get_tree_from_file_txt() {
     //не получилось, нужно наверное заносить в бинарный файл и считывать структурами с ключами
     std::ifstream in(file_way);
@@ -151,14 +149,12 @@ pnode node::get_tree_from_file_txt() {
     in.close();
     return root;
 }
-
 int node::char_to_digit(char ch) {
 
         return (int)(ch)%48;
 
     return -1;
 }
-
 pnode node::help_read_recurse_func_txt(pnode root, std::ifstream &in) {
     char ch;
     root=new node;
