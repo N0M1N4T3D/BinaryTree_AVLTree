@@ -95,6 +95,15 @@ void node::postfix() {
     }
 }
 
+void node::prefix(node* root) {
+    if (root == nullptr) {
+        return;
+    }
+    std::cout << root->key << " ";
+    prefix(root->left);
+    prefix(root->right);
+}
+
 void node::WideBam(node* root) {
     if (root == nullptr) {
         return;
@@ -115,6 +124,8 @@ void node::WideBam(node* root) {
     }
     std::cout << std::endl;
 }
+
+
 
 void node::insert_to_tree(pnode root, pnode new_node) {
     pnode now = root;
