@@ -11,6 +11,7 @@
 #include <vector>
 #include <locale.h>
 #include <queue>
+#include <stack>
 
 #define ar_size 10
 //сюда свой файл напишите, где создаваться ему...
@@ -43,11 +44,11 @@ public:
     void KLP(pnode root);
 
     static void WideBam(node* root);
+    void postfix();
 
     static pnode init_dfs_bin_from_f(pnode root);
     static void init_dfs_bin_to_f(pnode root);
 
-    static void wide_rounding(pnode node, int size);
 private:
     static pnode dfs_bin_from_f(pnode root, FILE* f);
     static void dfs_bin_to_f(pnode root, FILE* f);

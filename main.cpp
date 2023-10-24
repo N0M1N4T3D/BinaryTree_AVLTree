@@ -12,7 +12,11 @@ int main()
     node::printTree(root);
     node::search(root, 5);
 
+    printf("\nBreadth-first search\n");
     node::WideBam(root);
+    printf("\nPostfix bypass:\n");
+    root->postfix();
+    printf("\n");
 
     printf("Ending of programm");
     return 0;

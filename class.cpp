@@ -65,6 +65,36 @@ void node::printTree(node* root, const std::string& prefix, bool isLeft) {
     }
 }
 
+void node::postfix() {
+    std::stack<node*> s;
+    node* current = this;
+
+    while (current != nullptr || !s.empty()) {
+        if (current != nullptr) {
+            s.push(current);
+            current = current->get_left();
+        }
+        else {
+            node* temp = s.top()->get_right();
+            if (temp == nullptr) {
+                temp = s.top();
+                s.pop();
+                printf("%d", temp->get_key());
+                printf(" ");
+                while (!s.empty() && temp == s.top()->get_right()) {
+                    temp = s.top();
+                    s.pop();
+                    printf("%d", temp->get_key());
+                    printf(" ");
+                }
+            }
+            else {
+                current = temp;
+            }
+        }
+    }
+}
+
 void node::WideBam(node* root) {
     if (root == nullptr) {
         return;
