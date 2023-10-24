@@ -8,8 +8,12 @@ int main()
     node::generate_new_array(array_main);
     pnode root = new node();
     root = node::maketree_search(array_main, ar_size, 1);
+
     node::printTree(root);
     node::search(root, 5);
+
+    node::WideBam(root);
+
     printf("Ending of programm");
     return 0;
 }

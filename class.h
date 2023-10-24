@@ -10,6 +10,7 @@
 #include <iostream>
 #include <vector>
 #include <locale.h>
+#include <queue>
 
 #define ar_size 10
 //сюда свой файл напишите, где создаваться ему...
@@ -40,6 +41,8 @@ public:
     void set_left(node* left);
     void set_right(node* right);
     void KLP(pnode root);
+
+    static void WideBam(node* root);
 
     static pnode init_dfs_bin_from_f(pnode root);
     static void init_dfs_bin_to_f(pnode root);

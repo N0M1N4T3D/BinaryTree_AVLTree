@@ -65,6 +65,27 @@ void node::printTree(node* root, const std::string& prefix, bool isLeft) {
     }
 }
 
+void node::WideBam(node* root) {
+    if (root == nullptr) {
+        return;
+    }
+
+    std::queue<node*> q;
+    q.push(root);
+    while (!q.empty()) {
+        node* newa = q.front();
+        q.pop();
+        std::cout << newa->key << " ";
+        if (newa->left != nullptr) {
+            q.push(newa->left);
+        }
+        if (newa->right != nullptr) {
+            q.push(newa->right);
+        }
+    }
+    std::cout << std::endl;
+}
+
 void node::insert_to_tree(pnode root, pnode new_node) {
     pnode now = root;
     while (1)
