@@ -44,10 +44,25 @@ void node::print_tree_for_debugging(pnode root, int n) {
     for (int i = 0; i < n; i++)
     {
         printf("%s", " ");
-    }
+    }   
     printf("%d", root->key);
     printf("%s", "\n");
     print_tree_for_debugging(root->left, n + 5);
+}
+
+void node::printTree(node* root, const std::string& prefix, bool isLeft) {
+    if (root == nullptr) {
+        return;
+    }
+
+    std::cout << prefix;
+    std::cout << (isLeft ? "|--" : "\\--");
+    std::cout << root->key << std::endl;
+
+    if (root->left || root->right) {
+        printTree(root->left, prefix + (isLeft ? "|   " : "    "), true);
+        printTree(root->right, prefix + (isLeft ? "|   " : "    "), false);
+    }
 }
 
 void node::insert_to_tree(pnode root, pnode new_node) {

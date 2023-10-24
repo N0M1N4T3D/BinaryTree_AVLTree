@@ -7,6 +7,9 @@
 #include <time.h>
 #include <fstream>
 #include <string>
+#include <iostream>
+#include <vector>
+#include <locale.h>
 
 #define ar_size 10
 //сюда свой файл напишите, где создаваться ему...
@@ -29,6 +32,7 @@ public:
     node* get_right();
 
     static void print_tree_for_debugging(pnode root, int n);
+    static void printTree(node* root, const std::string& prefix = "", bool isLeft = false);
     static pnode maketree_search(int* arr, int size, int iter_show_flag = 0);
     static int* generate_new_array(int* arr);
     static pnode search(pnode n, int a);
@@ -40,6 +44,7 @@ public:
     static pnode init_dfs_bin_from_f(pnode root);
     static void init_dfs_bin_to_f(pnode root);
 
+    static void wide_rounding(pnode node, int size);
 private:
     static pnode dfs_bin_from_f(pnode root, FILE* f);
     static void dfs_bin_to_f(pnode root, FILE* f);
