@@ -95,6 +95,15 @@ void node::postfix() {
     }
 }
 
+void node::infix(node* root) {
+    if (root == nullptr) {
+        return;
+    }
+    infix(root->left);
+    std::cout << root->key << " ";
+    infix(root->right);
+}
+
 void node::prefix(node* root) {
     if (root == nullptr) {
         return;

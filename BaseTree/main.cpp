@@ -18,6 +18,8 @@ int main()
     root->postfix();
     printf("\nPrefix bypass:\n");
     node::prefix(root);
+    printf("\nInfix bypass:\n");
+    node::infix(root);
 
     printf("\nEnding of programm");
     return 0;

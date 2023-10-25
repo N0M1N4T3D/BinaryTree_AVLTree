@@ -13,7 +13,7 @@
 #include <queue>
 #include <stack>
 
-#define ar_size 100
+#define ar_size 100000
 //сюда свой файл напишите, где создаваться ему...
 #define file_way "C:\\Codes_progr\\tree.txt"
 #define bin_file_way "C:\\Codes_progr\\tree_b.bin"
@@ -46,6 +46,7 @@ public:
     //Обходы
     static void WideBam(node* root);
     static void prefix(node* root);
+    static void infix(node* root);
     void postfix();
 
     static pnode init_dfs_bin_from_f(pnode root);
