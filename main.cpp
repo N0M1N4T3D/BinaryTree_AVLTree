@@ -143,6 +143,18 @@ private:
         }
     }
 
+    void printAVL(Node* root, int n) {
+        if (root != NULL) {
+            printAVL(root->left, n + 5);
+            for (int i = 0; i < n; i++)
+            {
+                std::cout << " ";
+            }
+            std::cout << root->key << "\n";
+            printAVL(root->right, n + 5);
+        }
+    }
+
 public:
     AVLTree() : root(nullptr) {}
 
@@ -158,23 +170,35 @@ public:
         inOrderTraversal(root);
         std::cout << std::endl;
     }
+    int n = 0;
+
+    void printAVL() {
+        if (root != NULL) {
+            printAVL(root->right, n + 5);
+            for (int i = 0; i < n; i++)
+            {
+                std::cout << " ";
+            }
+            std::cout << root->key << "\n";
+            printAVL(root->left, n + 5);
+        }
+    }
 };
 
 int main() {
     AVLTree avlTree;
-
     avlTree.insert(10);
     avlTree.insert(20);
     avlTree.insert(30);
     avlTree.insert(40);
     avlTree.insert(50);
-
+    avlTree.printAVL();
     std::cout << "In-order traversal of the AVL tree: ";
     avlTree.inOrder();
 
     avlTree.remove(30);
     std::cout << "In-order traversal after removing 30: ";
     avlTree.inOrder();
-
+    avlTree.printAVL();
     return 0;
 }
