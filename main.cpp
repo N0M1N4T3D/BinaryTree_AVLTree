@@ -1,6 +1,9 @@
 ﻿#include <iostream>
+#include <random>
 #include <algorithm>
 
+
+int arrsize = 1000000; // редактирование размера дерева
 class AVLTree { //класс авл-дерева
 private:
     struct Node {
@@ -155,6 +158,21 @@ private:
         }
     }
 
+    Node* maketree_search(Node* root, int* arr) {
+        if (arrsize == 0) {
+            return nullptr;
+        }
+        for (int i = 0; i < arrsize; i++){
+            int key = arr[i];
+            int arr_ind = i + 1;
+            if (arr_ind % 5000 == 0){
+                std::cout << "Iteration: " << arr_ind << std::endl;
+            }
+            insert(key);
+        }
+        return root;
+    }
+
 public:
     AVLTree() : root(nullptr) {}
 
@@ -183,22 +201,28 @@ public:
             printAVL(root->left, n + 5);
         }
     }
+
+    void make_tree(int* arr){
+        maketree_search(root, arr);
+    }
 };
 
-int main() {
-    AVLTree avlTree;
-    avlTree.insert(10);
-    avlTree.insert(20);
-    avlTree.insert(30);
-    avlTree.insert(40);
-    avlTree.insert(50);
-    avlTree.printAVL();
-    std::cout << "In-order traversal of the AVL tree: ";
-    avlTree.inOrder();
+int* generateRandomNumbers(int* arr, int arrsize) {
+    for (int i = 0; i < arrsize; i++) {
+        arr[i] = i;
+    }
+    std::random_device rd;
+    std::mt19937 g(rd());
+    std::shuffle(arr, arr + arrsize, g);
+    return arr;
+}
 
-    avlTree.remove(30);
-    std::cout << "In-order traversal after removing 30: ";
-    avlTree.inOrder();
-    avlTree.printAVL();
+
+int main() {
+    int arr[arrsize - 1];
+    generateRandomNumbers(arr, arrsize + 1);
+    AVLTree avlTree;
+    avlTree.make_tree(arr);
+    //    avlTree.printAVL(); 
     return 0;
 }
