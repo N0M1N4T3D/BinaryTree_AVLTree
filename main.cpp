@@ -1,7 +1,7 @@
 ﻿#include <iostream>
 #include <algorithm>
 
-class AVLTree {
+class AVLTree { //класс авл-дерева
 private:
     struct Node {
         int key;
