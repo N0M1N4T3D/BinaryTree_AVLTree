@@ -2,8 +2,8 @@
 #include <random>
 #include <algorithm>
 
-
-int arrsize = 1000000; // редактирование размера дерева
+#define AR 10000000
+//const int arrsize = 1000000; // редактирование размера дерева
 class AVLTree { //класс авл-дерева
 private:
     struct Node {
@@ -159,10 +159,10 @@ private:
     }
 
     Node* maketree_search(Node* root, int* arr) {
-        if (arrsize == 0) {
+        if (AR == 0) {
             return nullptr;
         }
-        for (int i = 0; i < arrsize; i++){
+        for (int i = 0; i < AR; i++){
             int key = arr[i];
             int arr_ind = i + 1;
             if (arr_ind % 5000 == 0){
@@ -219,10 +219,11 @@ int* generateRandomNumbers(int* arr, int arrsize) {
 
 
 int main() {
-    int arr[arrsize - 1];
-    generateRandomNumbers(arr, arrsize + 1);
+    int* arr = new int[AR];
+    generateRandomNumbers(arr, AR + 1);
     AVLTree avlTree;
-    avlTree.make_tree(arr);
-    //    avlTree.printAVL(); 
+    avlTree.make_tree(arr);  
+
+    //avlTree.printAVL(); 
     return 0;
 }
