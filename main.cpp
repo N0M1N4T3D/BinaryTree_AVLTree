@@ -2,7 +2,7 @@
 #include <random>
 #include <algorithm>
 
-#define AR 10000000
+#define AR 1000000
 //const int arrsize = 1000000; // редактирование размера дерева
 class AVLTree { //класс авл-дерева
 private:
@@ -223,7 +223,8 @@ int main() {
     generateRandomNumbers(arr, AR + 1);
     AVLTree avlTree;
     avlTree.make_tree(arr);  
-
-    //avlTree.printAVL(); 
+    avlTree.insert(1000001); // - добавление элемента
+    avlTree.remove(1000001); // - удаление элемента
+    //avlTree.printAVL(); - вывод дерева в красивом виде
     return 0;
 }
